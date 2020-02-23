@@ -1,0 +1,45 @@
+{
+  "name": "mern-list",
+  "version": "1.0.0",
+  "description": "list application built with MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "development": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dieguiviti/mern-list.git"
+  },
+  "keywords": [
+    "list",
+    "app",
+    "mern",
+    "react",
+    "mongo",
+    "express",
+    "node",
+    "js",
+    "javascript"
+  ],
+  "author": "dieguiviti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dieguiviti/mern-list/issues"
+  },
+  "homepage": "https://github.com/dieguiviti/mern-list#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.1.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

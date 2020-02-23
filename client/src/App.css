@@ -1,0 +1,46 @@
+
+/* List component styles */
+
+/* header */
+#list-header {
+    text-align: center;
+    font-size: 4.2rem;
+    color: #28A745;
+    border-bottom: solid 0.3rem #28A745;
+    padding-bottom: 0.3rem;
+    margin-bottom: 1.5rem;
+}
+/* 
+    List Item CSSTransition 
+*/
+.fade-enter{
+/* when item is added */
+    opacity: 0.01;
+}
+
+.fade-enter-active{
+/* when item comes in */
+    opacity: 1;
+    transition: opacity 1000ms ease-in;
+}
+
+.fade-exit{
+/* when deleting action starts */
+    opacity: 1;
+}
+
+.fade-exit-active{
+/* Final fade transition */
+    opacity: 0.01;
+    transition: opacity 1000ms ease-out;
+}
+
+
+
+/* 
+    Remove item button 
+*/
+.remove-btn {
+    margin-right: 0.6rem;
+}
+
