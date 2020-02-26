@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 // Connect: for mapping state to properties
 import { connect } from 'react-redux';
-// getItems: action parameter
+//  action parameters
 import { getItems, deleteItem } from '../actions/itemActions';
 // Property validation
 import PropTypes from 'prop-types';
@@ -36,7 +36,7 @@ class List extends Component {
 
     // RENDER COMPONENT
     render() {
-        const { items } = this.props.item;
+        const { ITEMS } = this.props.item;
 
         return(
             <Container>
@@ -56,7 +56,7 @@ class List extends Component {
                         -CSS transition class 'fade' for fading transitions
                         -Display dynamic name variable from items' current mapped object within ListGroupItem
                         */}
-                        {items.map( ({_id, name}) => (
+                        {ITEMS.map( ({_id, name}) => (
                             <CSSTransition key={_id} timeout={500} classNames="fade"> 
                                 <ListGroupItem>
                                     <Button

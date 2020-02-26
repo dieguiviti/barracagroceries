@@ -1,45 +1,43 @@
 const EXPRESS = require('express');
 const MONGOOSE = require('mongoose');
-const BODY_PARSER = require('body-parser');
 const PATH = require('path');
 const DOT_ENV = require('dotenv');
 
-DOT_ENV.config();
-const URI = process.env.MONGODB_URI;
+// initialize EXPRESS App
+const APP = EXPRESS();
 
-// ITEMS api-route file reference ... see the USE ROUTES section of this file
+//  Use the json content type through express' bodyparser
+APP.use(EXPRESS.json());
+
+// API ROUTES SET UP
 const ITEMS = require('./routes/api/items');
-
-
-// initialize EXPRESS
-const app = EXPRESS();
-
-// bodyParser middleware
-app.use(BODY_PARSER.json());
+const USERS = require('./routes/api/users');
+APP.use('/api/items', ITEMS);
+APP.use('/api/users', USERS);
 
 // DB configuration
+DOT_ENV.config();
+const URI = process.env.MONGODB_URI;
 const DB = URI;
 
-// Connect to mongoDB
+// Connect to DB (Mongo DB)
 MONGOOSE
-    .connect(DB, { useUnifiedTopology: true, useNewUrlParser: true })
+    .connect(DB, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
     .then( () => console.log('MongoDB is connected...' ) )
     .catch( error => console.log(error) );
 
-// USE ROUTES
-app.use('/api/items', ITEMS);
 // Serve static assets if in production
 if(process.env.NODE_ENV === 'production') {
     // set static folder
-    app.use(EXPRESS.static('client/build'));
+    APP.use(EXPRESS.static('client/build'));
 
-    app.get('*', (req, res) => {
+    APP.get('*', (req, res) => {
         res.sendFile(PATH.resolve(__dirname, 'client', 'build', 'index.html'));
     });
 }
 
-// Once connected to db, run the server:
+// Once connected to DB, run the server for local development:
 // 1- Determine port
 const PORT = process.env.PORT || 5000;
 // 2- Listen
-app.listen(PORT, () => console.log(`SERVER HAS STARTED AND IT IS LISTENING ON PORT: ${PORT}`));
+APP.listen(PORT, () => console.log(`SERVER HAS STARTED AND IT IS LISTENING ON PORT: ${PORT}`));
