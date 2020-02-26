@@ -5,7 +5,7 @@ import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types';
 
 // Export getItems function to itemReducer
 // which returns the type of action (GET_ITEMS) as a prop value
-export const getItems = () => dispatch => {
+export let getItems = () => dispatch => {
     // call dispatch callback to setItemsLoading() to run an asynchronous request
     dispatch(setItemsLoading());
     // get request with axios
@@ -21,7 +21,7 @@ export const getItems = () => dispatch => {
 
 
 // Export addItem function returning type of action and a payload prop respective to parameter 
-export const addItem = item => dispatch => {
+export let addItem = item => dispatch => {
     axios
         .post('/api/items', item)
         .then( res => 
@@ -34,7 +34,7 @@ export const addItem = item => dispatch => {
 
 
 // Export deleteItem function returning its action type and a payload prop with the parameter
-export const deleteItem = _id => dispatch => {
+export let deleteItem = _id => dispatch => {
     axios
         .delete(`/api/items/${_id}`)
         .then( res =>
@@ -45,7 +45,7 @@ export const deleteItem = _id => dispatch => {
         )
 };
 
-export const setItemsLoading = () => {
+export let setItemsLoading = () => {
     return {
         type: ITEMS_LOADING
     }
