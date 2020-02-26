@@ -21,7 +21,7 @@ let User = new SCHEMA({
         type: String,
         required: true
     },
-    datefRegistration: {
+    dateOfRegistration: {
         type: Date,
         default: Date.now()
     }

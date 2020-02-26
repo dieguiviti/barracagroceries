@@ -1,5 +1,6 @@
 const EXPRESS = require('express');
 const ROUTER  = EXPRESS.Router();
+const AUTH = require('../../middleware/auth');
 
 // Item Model
 const ITEM = require('../../models/Item');
@@ -7,8 +8,8 @@ const ITEM = require('../../models/Item');
 /* 
     ROUTE:          GET api/item
     DESCRIPTION:    Get all items
-    ACCESS:         Public                                                                                                 */
-ROUTER.get('/', (request, response) => {
+    ACCESS:         Private                                                                                                 */
+ROUTER.get('/', AUTH, (request, response) => {
     ITEM                                        // refer to the model ITEM 
         .find()                                 // find the 'items' that correspond to the model
         .sort( {date: -1} )                     // sort the 'items' by date in descending order (1 would be ascending order)
@@ -18,8 +19,8 @@ ROUTER.get('/', (request, response) => {
 /* 
     ROUTE:          POST api/item
     DESCRIPTION:    Create and post an item to the database
-    ACCESS:         Public                                                                                                  */
-ROUTER.post('/', (request, response) => {
+    ACCESS:         Private                                                                                                  */
+ROUTER.post('/', AUTH, (request, response) => {
         const NEW_ITEM = new ITEM({                 // Create a new item object (see line 5)
         name: request.body.name                     // The name of the request will come from the body 
     });
@@ -33,10 +34,10 @@ ROUTER.post('/', (request, response) => {
 /* 
     ROUTE:          DELETE api/item/:id
     DESCRIPTION:    Delete an item from the database
-    ACCESS:         Public
+    ACCESS:         Private
 */
 
-ROUTER.delete('/:id', (request, response) => {
+ROUTER.delete('/:id', AUTH, (request, response) => {
     ITEM
         .findById( request.params.id )                                         // Find item by Id using the req.params object
         .then( item => {                                                       // Then, grab the item,

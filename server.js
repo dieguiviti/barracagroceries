@@ -12,8 +12,10 @@ APP.use(EXPRESS.json());
 // API ROUTES SET UP
 const ITEMS = require('./routes/api/items');
 const USERS = require('./routes/api/users');
+const AUTH  = require('./routes/api/auth');
 APP.use('/api/items', ITEMS);
 APP.use('/api/users', USERS);
+APP.use('/api/auth', AUTH);
 
 // DB configuration
 DOT_ENV.config();
