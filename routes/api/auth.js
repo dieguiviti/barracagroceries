@@ -6,6 +6,9 @@ const CONFIG = require('config');
 const JWT = require('jsonwebtoken');
 const AUTH = require('../../middleware/auth');
 
+const DOT_ENV = require('dotenv');
+DOT_ENV.config();
+
 /* 
     ROUTE:          POST api/auth
     DESCRIPTION:    Authenticate a user for login
@@ -36,7 +39,7 @@ const AUTH = require('../../middleware/auth');
                         // Sign Token
                         JWT.sign(
                             { id: user.id },
-                            CONFIG.get('jwtSecret'),
+                            process.env.JWT_SECRET,
                             { expiresIn: 3600 },
                             ( err, token ) => {
                                 // Assert error
