@@ -1,7 +1,7 @@
 const EXPRESS = require('express');
 const MONGOOSE = require('mongoose');
 const PATH = require('path');
-const DOT_ENV = require('dotenv');
+const CONFIG = require('config');
 
 // initialize EXPRESS App
 const APP = EXPRESS();
@@ -18,14 +18,13 @@ APP.use('/api/users', USERS);
 APP.use('/api/auth', AUTH);
 
 // DB configuration
-DOT_ENV.config();
-const URI = process.env.MONGODB_URI;
+const URI = CONFIG.get('MONGODB_URI');
 const DB = URI;
 
 // Connect to DB (Mongo DB)
 MONGOOSE
     .connect(DB, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
-    .then( () => console.log('MongoDB is connected...' ) )
+    .then( () => console.log('MongoDB is connected...') )
     .catch( error => console.log(error) );
 
 // Serve static assets if in production

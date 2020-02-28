@@ -9,7 +9,7 @@ const ITEM = require('../../models/Item');
     ROUTE:          GET api/item
     DESCRIPTION:    Get all items
     ACCESS:         Private                                                                                                 */
-ROUTER.get('/', AUTH, (request, response) => {
+ROUTER.get('/', (request, response) => {
     ITEM                                        // refer to the model ITEM 
         .find()                                 // find the 'items' that correspond to the model
         .sort( {date: -1} )                     // sort the 'items' by date in descending order (1 would be ascending order)
