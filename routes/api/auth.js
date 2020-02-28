@@ -2,7 +2,7 @@ const EXPRESS = require('express');
 const ROUTER = EXPRESS.Router();
 const USER = require('../../models/User');
 const BCRYPT = require('bcryptjs');
-const CONFIG = require('config');
+//const CONFIG = require('config');
 const JWT = require('jsonwebtoken');
 const AUTH = require('../../middleware/auth');
 
