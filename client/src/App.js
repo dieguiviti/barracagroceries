@@ -10,8 +10,14 @@ import { Container } from 'reactstrap';
 // React-redux provider
 import { Provider } from 'react-redux';
 import store from './store';
+// import load user action
+import { LOAD_USER } from './actions/authActions';
 
 class App extends Component {
+  componentDidMount(){
+    store.dispatch(LOAD_USER());
+  }
+
   render() {
     return (
       <Provider store={store}>

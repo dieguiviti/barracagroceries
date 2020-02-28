@@ -25,7 +25,7 @@ const AUTH = require('../../middleware/auth');
             .findOne({ username })
             .then( user => {
                 // Assert if user exists and send response
-                if( !user ) return response.status(400).json({  message: "No user has been registered that username"})
+                if( !user ) return response.status(400).json({message: "No user has been registered that username"})
             
                 // Validate Password
                 BCRYPT

@@ -44,7 +44,7 @@ const JWT = require('jsonwebtoken');
                         newUser
                             .save()
                             .then( user => {
-                                console.log("New User Added to DB");
+                                console.log("---------New User Added to DB---------");
 
                                 // Sign the json web token for user
                                 JWT.sign(

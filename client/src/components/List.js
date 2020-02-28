@@ -24,6 +24,13 @@ import PropTypes from 'prop-types';
 
 // COMPONENT CLASS
 class List extends Component {
+
+    //prop types
+    static propTypes = {
+        getItems: PropTypes.func.isRequired,
+        item: PropTypes.object.isRequired,
+        isAuthenticated: PropTypes.bool
+    };
     
     //Life Cycle
     componentDidMount() {
@@ -45,36 +52,41 @@ class List extends Component {
                         <FontAwesomeIcon className="mr-4" icon={faShoppingCart}></FontAwesomeIcon>
                     </h3>
                 </div>
-                {/* 
-                    LIST of todo's
-                */}
-                <ListGroup>
-                    <TransitionGroup className="List">
-                        {/* 
-                        -Map through all objects inside items
-                        -CSS transition refers the mapped index to a unique key which we link to the current object id
-                        -CSS transition class 'fade' for fading transitions
-                        -Display dynamic name variable from items' current mapped object within ListGroupItem
-                        */}
-                        {items.map( ({_id, name}) => (
-                            <CSSTransition key={_id} timeout={500} classNames="fade"> 
-                                <ListGroupItem>
-                                    <Button
-                                        className="remove-btn"
-                                        color="warning"
-                                        size="sm"
-                                        // on click, grab state and set items object OF current state equal to items.filter
-                                        // returning all items whose id is not equal to the one currently selected
-                                        onClick={ this.onDeleteClick.bind(this, _id)}
-                                    >
-                                        &times;
-                                    </Button>
-                                    {name}
-                                </ListGroupItem>
-                            </CSSTransition>
-                        ))}
-                    </TransitionGroup>
-                </ListGroup>
+
+                {
+                    this.props.isAuthenticated 
+                    ? 
+                    <ListGroup>
+                        <TransitionGroup className="List">
+                            {/* 
+                            -Map through all objects inside items
+                            -CSS transition refers the mapped index to a unique key which we link to the current object id
+                            -CSS transition class 'fade' for fading transitions
+                            -Display dynamic name variable from items' current mapped object within ListGroupItem
+                            */}
+                            {items.map( ({_id, name}) => (
+                                <CSSTransition key={_id} timeout={500} classNames="fade"> 
+                                    <ListGroupItem>
+                                        <Button
+                                            className="remove-btn"
+                                            color="warning"
+                                            size="sm"
+                                            // on click, grab state and set items object OF current state equal to items.filter
+                                            // returning all items whose id is not equal to the one currently selected
+                                            onClick={ this.onDeleteClick.bind(this, _id)}
+                                        >
+                                            &times;
+                                        </Button>
+                                        {name}
+                                    </ListGroupItem>
+                                </CSSTransition>
+                            ))}
+                        </TransitionGroup>
+                    </ListGroup>
+                    :
+                    null
+                }
+                
 
             </Container>
         );
@@ -82,17 +94,13 @@ class List extends Component {
 }
 
 
-List.propTypes = {
-    getItems: PropTypes.func.isRequired,
-    item: PropTypes.object.isRequired
-};
-
-const mapStateToProps = (state) => ({
-    item: state.item
+const MAP_STATE_TO_PROPS = state => ({
+    item: state.item,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
-    mapStateToProps, 
+    MAP_STATE_TO_PROPS, 
     { getItems, deleteItem }
     )(List);
 
