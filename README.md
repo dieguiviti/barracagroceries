@@ -17,3 +17,5 @@ To run.
 2- cd into client folder and run 'npm install'
 
 3- cd back into app's root directory and run 'npm run development'
+
+PD: You will likely have to install concurrently (app root folder "npm i concurrently"), and nodemon (sudo npm i -g nodemon)
